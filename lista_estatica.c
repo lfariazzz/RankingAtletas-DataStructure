@@ -42,7 +42,7 @@ void imprime_estatica(NoEstatico lista[], int inicio) {
 
 int busca_estatica(NoEstatico lista[], int inicio, int numeroPeito) {
     int i = inicio;
-    while (i != -1) s{
+    while (i != -1) {
         if (lista[i].dado.numeroPeito == numeroPeito) {
             return i;
         }

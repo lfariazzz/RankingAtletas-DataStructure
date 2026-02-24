@@ -1,15 +1,16 @@
 # depslib dependency file v1.0
-1771951369 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\lista_dinamica.c
-
-1771954723 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\lista_estatica.c
+1771956373 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\lista_dinamica.c
 	"atleta.h"
 
-1771954976 c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\atleta.h
+1771956429 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\lista_estatica.c
+	"atleta.h"
+
+1771956292 c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\atleta.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1771952586 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\main.c
+1771956564 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\main.c
 	"atleta.h"
 
 1771951369 source:c:\users\levi2\documents\workspace\projetos\rankingatletas-datastructure\sorts.c
