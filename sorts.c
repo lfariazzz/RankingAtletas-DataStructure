@@ -237,3 +237,20 @@ long quick_sort(Atleta *v, int n, FuncComparacao cmp) {
     if (n <= 1) return 0;
     return _quick_sort_rec(v, 0, n - 1, cmp);
 }
+
+long bubble_sort(Atleta *v, int n, FuncComparacao cmp) {
+    long comparacoes = 0;
+    for (int i = 0; i < n - 1; i++) {
+        int trocou = 0;
+        for (int j = 0; j < n - 1 - i; j++) {
+            comparacoes++;
+            if (cmp(&v[j], &v[j+1]) > 0) {
+                trocar(&v[j], &v[j+1]);
+                trocou = 1;
+            }
+        }
+        if (!trocou)
+            break; /* Vetor ja ordenado — otimizacao do melhor caso */
+    }
+    return comparacoes;
+}
