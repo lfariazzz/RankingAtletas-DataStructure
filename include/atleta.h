@@ -5,65 +5,52 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 10000 // Capacidade para testes de volume
+#define MAX_NOME 64
+#define MAX 10010
 
-// --- ESTRUTURAS ---
+typedef enum {
+    ATIVO    = 0,   // Atleta correndo
+    FINALIZADO = 1, // Atleta terminou a corrida
+    DNF      = 2    // Atleta nÃ£o finalizou
+} StatusAtleta;
+
+// Estrutura do Atleta
 typedef struct {
-    int numeroPeito;
-    char nome[50];
-    double distanciaKM;
-    double tempoSegundos;
-    double pace;          // min/km
-    int posicao;          // Definida após ordenação
+    int numero;
+    char nome[MAX_NOME];
+    float tempoSegundos;
+    float pace; 
+    float distanciaKM;
+    int posicao;
+    StatusAtleta status;
 } Atleta;
 
-typedef struct No { // Dinâmica
-    Atleta dado;
-    struct No *proximo;
-} No;
+// Estrutura para seleÃ§Ã£o de critÃ©rio de ordenaÃ§Ã£o
+typedef enum {
+    CRITERIO_POSICAO  = 0,
+    CRITERIO_PACE     = 1,
+    CRITERIO_TEMPO    = 2,
+    CRITERIO_NOME     = 3,
+    CRITERIO_NUMERO   = 4,
+    CRITERIO_DISTANCIA= 5
+} CriterioOrdenacao;
 
-typedef struct { // Estática
-    Atleta dado;
-    int proximo;
-} NoEstatico;
-
-// --- PROTÓTIPOS ---
-
-// atleta.c (Regras de Negócio)
-void calcula_pace(Atleta *a);
-
-// lista_estatica.c (Gerenciamento de Vetor)
-void inicializa_estatica(NoEstatico lista[], int *inicio, int *disponivel);
-int insere_estatica(NoEstatico lista[], int *inicio, int *disponivel, Atleta a);
-void imprime_estatica(NoEstatico lista[], int inicio);
-int busca_estatica(NoEstatico lista[], int inicio, int numeroPeito);
-int remove_estatica(NoEstatico lista[], int *inicio, int *disponivel, int numeroPeito);
-void atribui_posicoes_estatica(NoEstatico lista[], int inicio);
-
-// lista_dinamica.c (Gerenciamento de Memória)
-void inicializa_dinamica(No **inicio);
-int insere_dinamica(No **inicio, Atleta a);
-void imprime_dinamica(No *inicio);
-int busca_dinamica(No *inicio, int numeroPeito);
-int remove_dinamica(No **inicio, int numeroPeito);
-void atribui_posicoes_dinamica(No *inicio);
-void libera_dinamica(No **inicio);
-
-// sorts.c (TODOS os Algoritmos)
-// Critério: Sempre pelo menor Tempo (tempoSegundos)
-
-// Estáticos
-void bubble_sort_estatico(NoEstatico lista[], int inicio);
-void selection_sort_estatico(NoEstatico lista[], int inicio);
-void insertion_sort_estatico(NoEstatico lista[], int inicio);
-void quick_sort_estatico(NoEstatico lista[], int inicio, int fim_logico);
-void merge_sort_estatico(NoEstatico lista[], int inicio, int fim_logico);
-
-// Dinâmicos
-void bubble_sort_dinamico(No *inicio);
-void selection_sort_dinamico(No *inicio);
-void insertion_sort_dinamico(No *inicio);
-void quick_sort_dinamico(No *inicio, No *fim);
-void merge_sort_dinamico(No **inicio);
-
-#endif
+// Funcao de comparacao generica
+typedef int (*FuncComparacao)(const Atleta *a, const Atleta *b);
+ 
+// Retorna funcao de comparacao para o criterio dado
+FuncComparacao obter_comparador(CriterioOrdenacao criterio);
+ 
+// Comparadores individuais
+int cmp_posicao  (const Atleta *a, const Atleta *b);
+int cmp_pace     (const Atleta *a, const Atleta *b);
+int cmp_tempo    (const Atleta *a, const Atleta *b);
+int cmp_nome     (const Atleta *a, const Atleta *b);
+int cmp_numero   (const Atleta *a, const Atleta *b);
+int cmp_distancia(const Atleta *a, const Atleta *b);
+ 
+// Utilitarios
+void imprimir_atleta(const Atleta *a);
+void gerar_atleta_aleatorio(Atleta *a, int numero);
+ 
+#endif 
