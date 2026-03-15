@@ -15,15 +15,12 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # ── Leitura do CSV ────────────────────────────────────────────────────────────
 def ler_csv(path):
     dados = []
-    # Tentamos abrir como utf-16 primeiro, já que o erro apontou 0xff
-    # Se falhar, ele tenta utf-8-sig (que ignora o BOM do UTF-8)
     try:
         encoding_to_try = 'utf-16'
         with open(path, newline="", encoding=encoding_to_try) as f:
             reader = csv.DictReader(f)
-            # Forçamos a leitura da primeira linha para testar o encoding
             test_row = next(reader) 
-            f.seek(0) # Volta pro começo se funcionou
+            f.seek(0)
             
     except (UnicodeError, StopIteration):
         encoding_to_try = 'utf-8-sig'
